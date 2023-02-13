@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebpConverter", "AvifConverter\WebpConverter.csproj", "{0E12FBD2-6FC1-45C3-B6F9-F13FEB7E49E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpResponseApp", "HttpResponseApp\HttpResponseApp.csproj", "{06CB44CB-9EF7-459D-AA84-50FD76AD22E6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0E12FBD2-6FC1-45C3-B6F9-F13FEB7E49E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E12FBD2-6FC1-45C3-B6F9-F13FEB7E49E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E12FBD2-6FC1-45C3-B6F9-F13FEB7E49E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E12FBD2-6FC1-45C3-B6F9-F13FEB7E49E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06CB44CB-9EF7-459D-AA84-50FD76AD22E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06CB44CB-9EF7-459D-AA84-50FD76AD22E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06CB44CB-9EF7-459D-AA84-50FD76AD22E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06CB44CB-9EF7-459D-AA84-50FD76AD22E6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {78060CAD-5D44-4718-B542-15503DF01D30}
+	EndGlobalSection
+EndGlobal
