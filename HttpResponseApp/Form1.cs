@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using HtmlAgilityPack;
 using System.Net;
 using System.Collections;
+using System.Diagnostics;
 
 namespace HttpResponseApp
 {
@@ -127,11 +128,18 @@ namespace HttpResponseApp
                     if (stop) break;
                     try
                     {
+                        var stopWatch = new Stopwatch();
+                        stopWatch.Start();
+
                         var response = await httpClient.GetAsync(url);
+
+                        stopWatch.Stop();
+                        var responseTime = stopWatch.ElapsedMilliseconds;
+
                         response.RequestMessage.RequestUri = new Uri(url);
                         response.RequestMessage.Method = HttpMethod.Get;
                         responses.Add(response);
-                        string item = response.RequestMessage.RequestUri + " - " + (int)response.StatusCode + " - " + response.ReasonPhrase + " " + (response.StatusCode == HttpStatusCode.OK ? "\u2714" : "\u2716");
+                        string item = response.RequestMessage.RequestUri + " - " + (int)response.StatusCode + " - " + response.ReasonPhrase + " " + (response.StatusCode == HttpStatusCode.OK ? "\u2714" : "\u2716") + " - " + "Response Time: " + responseTime + "ms";
                         label2.Text = $"Toplam: {urls.Count} adet url bulundu. Tarama durumu: {responses.Count}/{urls.Count}";
                         listBoxResponses.Items.Add(item);
 
