@@ -50,7 +50,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(745, 567);
+            this.label2.Location = new System.Drawing.Point(781, 525);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(0, 15);
             this.label2.TabIndex = 22;
@@ -89,6 +89,7 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.listBoxResponses);
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.linkLabel1);
@@ -189,7 +190,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1082, 602);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -200,7 +200,6 @@
             this.tabPage1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

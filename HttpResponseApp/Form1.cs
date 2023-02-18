@@ -15,7 +15,6 @@ namespace HttpResponseApp
     public partial class Form1 : Form
     {
         private bool stop = false;
-        private int delay = 500;
         public Form1()
         {
             InitializeComponent();
@@ -141,6 +140,8 @@ namespace HttpResponseApp
                         responses.Add(response);
                         string item = response.RequestMessage.RequestUri + " - " + (int)response.StatusCode + " - " + response.ReasonPhrase + " " + (response.StatusCode == HttpStatusCode.OK ? "\u2714" : "\u2716") + " - " + "Response Time: " + responseTime + "ms";
                         label2.Text = $"Toplam: {urls.Count} adet url bulundu. Tarama durumu: {responses.Count}/{urls.Count}";
+                        if (responses.Count == urls.Count)
+                            MessageBox.Show("Ýþlem tamamlandý", "Stop", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         listBoxResponses.Items.Add(item);
 
                         //Delay 3 second
