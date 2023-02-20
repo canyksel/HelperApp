@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Security.Policy;
 using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
+using System.Data;
 
 namespace HttpResponseApp
 {
@@ -50,8 +51,10 @@ namespace HttpResponseApp
             }
 
             stop = false;
+            checkBoxLighthouse.Enabled= false;
+            linkLabel1.Enabled = false;
+            btnSaveResult.Enabled = false;
 
-            listBoxResponses.Items.Clear();
             listBoxUrlList.Items.Clear();
             List<string> urls = new List<string>();
 
@@ -133,14 +136,33 @@ namespace HttpResponseApp
                     var json = JObject.Parse(jsonString);
 
                     var performanceScore = json["lighthouseResult"]["categories"]["performance"]?["score"]?.ToString() ?? "N/A";
-                    //var accessibilityScore = json["lighthouseResult"]["categories"]["accessibility"]?["score"]?.ToString() ?? "N/A";
-                    //var bestPracticesScore = json["lighthouseResult"]["categories"]["best-practices"]?["score"]?.ToString() ?? "N/A";
-                    //var seoScore = json["lighthouseResult"]["categories"]["seo"]?["score"]?.ToString() ?? "N/A";
-                    //var pwaScore = json["lighthouseResult"]["categories"]["pwa"]?["score"]?.ToString() ?? "N/A";
+                    var lcpScore = json["lighthouseResult"]["audits"]["largest-contentful-paint"]["displayValue"]?.ToString() ?? "N/A";
+                    var fcpScore = json["lighthouseResult"]["audits"]["first-contentful-paint"]["displayValue"]?.ToString() ?? "N/A";
+                    var clsScore = json["lighthouseResult"]["audits"]["cumulative-layout-shift"]["displayValue"]?.ToString() ?? "N/A";
 
                     return decimal.Parse(performanceScore) * 100;
                 }
             }
+
+            //async Task<Dictionary<string, string>> GetPerformanceResult(string url)
+            //{
+            //    string apiUrl = "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=" + url;
+
+            //    using (var client = new HttpClient())
+            //    {
+            //        var response = await client.GetAsync(apiUrl);
+            //        var jsonString = await response.Content.ReadAsStringAsync();
+            //        var json = JObject.Parse(jsonString);
+
+            //        var result = new Dictionary<string, string>();
+            //        result.Add("performanceScore", json["lighthouseResult"]["categories"]["performance"]?["score"]?.ToString() ?? "N/A");
+            //        result.Add("lcpScore", json["lighthouseResult"]["audits"]["largest-contentful-paint"]["displayValue"]?.ToString() ?? "N/A");
+            //        result.Add("fcpScore", json["lighthouseResult"]["audits"]["first-contentful-paint"]["displayValue"]?.ToString() ?? "N/A");
+            //        result.Add("clsScore", json["lighthouseResult"]["audits"]["cumulative-layout-shift"]["displayValue"]?.ToString() ?? "N/A");
+
+            //        return result;
+            //    }
+            //}
 
             List<HttpResponseMessage> responses = new List<HttpResponseMessage>();
             using (var httpClient = new HttpClient())
@@ -175,7 +197,76 @@ namespace HttpResponseApp
                         string item = response.RequestMessage.RequestUri + " - " + (int)response.StatusCode + " - " + response.ReasonPhrase + " " + (response.StatusCode == HttpStatusCode.OK ? "\u2714" : "\u2716") + " - " + "Response Time: " + responseTime + "ms" + (performanceResult != null ? " - " + $"Performance result: {performanceResult}" : "");
                         if (responses.Count == urls.Count)
                             MessageBox.Show("Ýþlem tamamlandý", "Stop", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        listBoxResponses.Items.Add(item);
+
+                        var dataGridViewRow = new DataGridViewRow();
+
+                        var statusCellStyle = new DataGridViewCellStyle();
+                        var performanceCellStyle = new DataGridViewCellStyle();
+                        var responseTimeCellStyle = new DataGridViewCellStyle();
+
+
+
+                        // Durum koduna göre hücre arka plan rengi ayarlanýyor
+                        if ((int)response.StatusCode == 200)
+                        {
+                            statusCellStyle.BackColor = Color.LightGreen;
+                        }
+                        else if ((int)response.StatusCode == 500)
+                        {
+                            statusCellStyle.BackColor = Color.LightPink;
+                        }
+
+                        if (response.StatusCode == HttpStatusCode.OK)
+                        {
+                            if (responseTime < 100)
+                            {
+                                responseTimeCellStyle.BackColor = Color.MediumSpringGreen;
+                            }
+                            else if (100 < responseTime && responseTime < 300)
+                            {
+                                responseTimeCellStyle.BackColor = Color.LightGreen;
+                            }
+
+                            else if (300 < responseTime && responseTime < 1000)
+                            {
+                                responseTimeCellStyle.BackColor = Color.LightGoldenrodYellow;
+                            }
+
+                            else if (1000 < responseTime && responseTime < 2000)
+                            {
+                                responseTimeCellStyle.BackColor = Color.LightPink;
+                            }
+                            else
+                            {
+                                responseTimeCellStyle.BackColor = Color.IndianRed;
+                            }
+                        }
+
+                        if (checkBoxLighthouse.Checked)
+                        {
+                            if((int)performanceResult >= 90)
+                                performanceCellStyle.BackColor = Color.LightGreen;
+                            else if(50 <= (int)performanceResult && (int)performanceResult <= 89)
+                                performanceCellStyle.BackColor = Color.LightGoldenrodYellow;
+                            else
+                                performanceCellStyle.BackColor = Color.LightPink;
+                        }
+
+                        dataGridViewRow.CreateCells(dataGridView1);
+                        dataGridViewRow.Cells[0].Value = response.RequestMessage.RequestUri.ToString();
+                        dataGridViewRow.Cells[1].Value = (int)response.StatusCode;
+                        dataGridViewRow.Cells[2].Value = responseTime.ToString() + "ms";
+                        dataGridViewRow.Cells[3].Value = response.ReasonPhrase + " " + (response.StatusCode == HttpStatusCode.OK ? "\u2714" : "\u2716");
+                        dataGridViewRow.Cells[4].Value = performanceResult?.ToString("#") ?? "";
+
+                        // Hücrelerin DataGridViewCellStyle özellikleri ayarlanýyor
+                        dataGridViewRow.Cells[1].Style = statusCellStyle;
+                        dataGridViewRow.Cells[2].Style= responseTimeCellStyle;
+                        dataGridViewRow.Cells[3].Style = statusCellStyle;
+                        dataGridViewRow.Cells[4].Style = performanceCellStyle;
+
+
+                        dataGridView1.Rows.Add(dataGridViewRow);
 
                         //Delay 3 second
                         await Task.Delay(3000);
@@ -198,12 +289,15 @@ namespace HttpResponseApp
             if (MessageBox.Show("Ýþlemi durdurmak istediðinizden emin misiniz?", "Stop", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 stop = true;
+                checkBoxLighthouse.Enabled = true;
+                linkLabel1.Enabled = true;
+                btnSaveResult.Enabled = true;
             }
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            listBoxResponses.Items.Clear();
+            dataGridView1.Rows.Clear();
         }
 
         private async void btnSaveResult_Click(object sender, EventArgs e)
@@ -215,7 +309,7 @@ namespace HttpResponseApp
             {
                 using (StreamWriter writer = new StreamWriter(saveFileDialog.FileName))
                 {
-                    foreach (var item in listBoxResponses.Items)
+                    foreach (var item in dataGridView1.Rows)
                     {
                         writer.WriteLine(item);
                     }

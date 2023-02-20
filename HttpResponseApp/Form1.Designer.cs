@@ -33,9 +33,14 @@
             this.listBoxUrlList = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Url = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ResponseTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Phrase = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Performance = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.checkBoxLighthouse = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.listBoxResponses = new System.Windows.Forms.ListBox();
             this.button2 = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.button1 = new System.Windows.Forms.Button();
@@ -44,6 +49,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -89,10 +95,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.dataGridView1);
             this.tabPage1.Controls.Add(this.checkBoxLighthouse);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.listBoxResponses);
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.linkLabel1);
             this.tabPage1.Controls.Add(this.button1);
@@ -106,14 +112,59 @@
             this.tabPage1.Text = "Crawl Website";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Url,
+            this.Status,
+            this.ResponseTime,
+            this.Phrase,
+            this.Performance});
+            this.dataGridView1.Location = new System.Drawing.Point(7, 70);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 25;
+            this.dataGridView1.Size = new System.Drawing.Size(1057, 445);
+            this.dataGridView1.TabIndex = 26;
+            // 
+            // Url
+            // 
+            this.Url.HeaderText = "Url";
+            this.Url.Name = "Url";
+            this.Url.Width = 312;
+            // 
+            // Status
+            // 
+            this.Status.HeaderText = "Status Code";
+            this.Status.Name = "Status";
+            this.Status.Width = 152;
+            // 
+            // ResponseTime
+            // 
+            this.ResponseTime.HeaderText = "Response Time(ms)";
+            this.ResponseTime.Name = "ResponseTime";
+            this.ResponseTime.Width = 200;
+            // 
+            // Phrase
+            // 
+            this.Phrase.HeaderText = "Reason Phrase";
+            this.Phrase.Name = "Phrase";
+            this.Phrase.Width = 150;
+            // 
+            // Performance
+            // 
+            this.Performance.HeaderText = "Performance Score";
+            this.Performance.Name = "Performance";
+            this.Performance.Width = 200;
+            // 
             // checkBoxLighthouse
             // 
             this.checkBoxLighthouse.AutoSize = true;
             this.checkBoxLighthouse.Location = new System.Drawing.Point(576, 19);
             this.checkBoxLighthouse.Name = "checkBoxLighthouse";
-            this.checkBoxLighthouse.Size = new System.Drawing.Size(121, 19);
+            this.checkBoxLighthouse.Size = new System.Drawing.Size(127, 19);
             this.checkBoxLighthouse.TabIndex = 24;
-            this.checkBoxLighthouse.Text = "Check Lighthouse";
+            this.checkBoxLighthouse.Text = "Include Lighthouse";
             this.checkBoxLighthouse.UseVisualStyleBackColor = true;
             // 
             // label1
@@ -125,15 +176,6 @@
             this.label1.Size = new System.Drawing.Size(100, 20);
             this.label1.TabIndex = 8;
             this.label1.Text = "Http Results:";
-            // 
-            // listBoxResponses
-            // 
-            this.listBoxResponses.FormattingEnabled = true;
-            this.listBoxResponses.ItemHeight = 15;
-            this.listBoxResponses.Location = new System.Drawing.Point(6, 70);
-            this.listBoxResponses.Name = "listBoxResponses";
-            this.listBoxResponses.Size = new System.Drawing.Size(1058, 439);
-            this.listBoxResponses.TabIndex = 3;
             // 
             // button2
             // 
@@ -150,7 +192,7 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.linkLabel1.LinkColor = System.Drawing.Color.Black;
-            this.linkLabel1.Location = new System.Drawing.Point(1002, 50);
+            this.linkLabel1.Location = new System.Drawing.Point(1002, 49);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(62, 17);
             this.linkLabel1.TabIndex = 18;
@@ -210,6 +252,7 @@
             this.tabPage2.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -222,14 +265,18 @@
         private Label label3;
         private TabPage tabPage1;
         private Label label1;
-        private ListBox listBoxResponses;
         private Button button2;
         private LinkLabel linkLabel1;
         private Button button1;
         private Button btnSaveResult;
         private TextBox txtUrls;
         private TabControl tabControl1;
-        private ListBox listBoxResponseList;
         private CheckBox checkBoxLighthouse;
+        private DataGridView dataGridView1;
+        private DataGridViewTextBoxColumn Url;
+        private DataGridViewTextBoxColumn Status;
+        private DataGridViewTextBoxColumn ResponseTime;
+        private DataGridViewTextBoxColumn Phrase;
+        private DataGridViewTextBoxColumn Performance;
     }
 }
