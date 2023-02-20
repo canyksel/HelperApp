@@ -33,6 +33,7 @@
             this.listBoxUrlList = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBoxLighthouse = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.listBoxResponses = new System.Windows.Forms.ListBox();
             this.button2 = new System.Windows.Forms.Button();
@@ -88,6 +89,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.checkBoxLighthouse);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.listBoxResponses);
@@ -103,6 +105,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Crawl Website";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxLighthouse
+            // 
+            this.checkBoxLighthouse.AutoSize = true;
+            this.checkBoxLighthouse.Location = new System.Drawing.Point(576, 19);
+            this.checkBoxLighthouse.Name = "checkBoxLighthouse";
+            this.checkBoxLighthouse.Size = new System.Drawing.Size(121, 19);
+            this.checkBoxLighthouse.TabIndex = 24;
+            this.checkBoxLighthouse.Text = "Check Lighthouse";
+            this.checkBoxLighthouse.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -218,5 +230,6 @@
         private TextBox txtUrls;
         private TabControl tabControl1;
         private ListBox listBoxResponseList;
+        private CheckBox checkBoxLighthouse;
     }
 }

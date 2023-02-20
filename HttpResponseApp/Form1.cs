@@ -9,6 +9,9 @@ using HtmlAgilityPack;
 using System.Net;
 using System.Collections;
 using System.Diagnostics;
+using System.Security.Policy;
+using System.Xml.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace HttpResponseApp
 {
@@ -119,6 +122,26 @@ namespace HttpResponseApp
                 return links;
             }
 
+            async Task<decimal> GetPerformanceResult(string url)
+            {
+                string apiUrl = "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=" + url;
+
+                using (var client = new HttpClient())
+                {
+                    var response = await client.GetAsync(apiUrl);
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var json = JObject.Parse(jsonString);
+
+                    var performanceScore = json["lighthouseResult"]["categories"]["performance"]?["score"]?.ToString() ?? "N/A";
+                    //var accessibilityScore = json["lighthouseResult"]["categories"]["accessibility"]?["score"]?.ToString() ?? "N/A";
+                    //var bestPracticesScore = json["lighthouseResult"]["categories"]["best-practices"]?["score"]?.ToString() ?? "N/A";
+                    //var seoScore = json["lighthouseResult"]["categories"]["seo"]?["score"]?.ToString() ?? "N/A";
+                    //var pwaScore = json["lighthouseResult"]["categories"]["pwa"]?["score"]?.ToString() ?? "N/A";
+
+                    return decimal.Parse(performanceScore) * 100;
+                }
+            }
+
             List<HttpResponseMessage> responses = new List<HttpResponseMessage>();
             using (var httpClient = new HttpClient())
             {
@@ -127,6 +150,17 @@ namespace HttpResponseApp
                     if (stop) break;
                     try
                     {
+                        label2.Text = $"Toplam: {urls.Count} adet url bulundu. Tarama durumu: {responses.Count}/{urls.Count}";
+                        decimal? performanceResult = 0;
+                        if (checkBoxLighthouse.Checked)
+                        {
+                            performanceResult = await GetPerformanceResult(url);
+                        }
+                        else
+                        {
+                            performanceResult = null;
+                        }
+
                         var stopWatch = new Stopwatch();
                         stopWatch.Start();
 
@@ -138,8 +172,7 @@ namespace HttpResponseApp
                         response.RequestMessage.RequestUri = new Uri(url);
                         response.RequestMessage.Method = HttpMethod.Get;
                         responses.Add(response);
-                        string item = response.RequestMessage.RequestUri + " - " + (int)response.StatusCode + " - " + response.ReasonPhrase + " " + (response.StatusCode == HttpStatusCode.OK ? "\u2714" : "\u2716") + " - " + "Response Time: " + responseTime + "ms";
-                        label2.Text = $"Toplam: {urls.Count} adet url bulundu. Tarama durumu: {responses.Count}/{urls.Count}";
+                        string item = response.RequestMessage.RequestUri + " - " + (int)response.StatusCode + " - " + response.ReasonPhrase + " " + (response.StatusCode == HttpStatusCode.OK ? "\u2714" : "\u2716") + " - " + "Response Time: " + responseTime + "ms" + (performanceResult != null ? " - " + $"Performance result: {performanceResult}" : "");
                         if (responses.Count == urls.Count)
                             MessageBox.Show("Ýþlem tamamlandý", "Stop", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         listBoxResponses.Items.Add(item);
