@@ -13,6 +13,7 @@ using System.Security.Policy;
 using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
 using System.Data;
+using HttpResponseApp.Models;
 
 namespace HttpResponseApp
 {
@@ -125,7 +126,7 @@ namespace HttpResponseApp
                 return links;
             }
 
-            async Task<decimal> GetPerformanceResult(string url)
+            async Task<AnalyticsModel> GetPerformanceResult(string url)
             {
                 string apiUrl = "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=" + url;
 
@@ -140,7 +141,15 @@ namespace HttpResponseApp
                     var fcpScore = json["lighthouseResult"]["audits"]["first-contentful-paint"]["displayValue"]?.ToString() ?? "N/A";
                     var clsScore = json["lighthouseResult"]["audits"]["cumulative-layout-shift"]["displayValue"]?.ToString() ?? "N/A";
 
-                    return decimal.Parse(performanceScore) * 100;
+                    var model = new AnalyticsModel()
+                    {
+                        PerformanceScore = performanceScore,
+                        LCPScore = lcpScore,
+                        FCPScore = fcpScore,
+                        CLSScore = clsScore,
+                    };
+
+                    return model;
                 }
             }
 
@@ -173,14 +182,14 @@ namespace HttpResponseApp
                     try
                     {
                         label2.Text = $"Toplam: {urls.Count} adet url bulundu. Tarama durumu: {responses.Count}/{urls.Count}";
-                        decimal? performanceResult = 0;
+                        var analiyticsResult = new AnalyticsModel();
                         if (checkBoxLighthouse.Checked)
                         {
-                            performanceResult = await GetPerformanceResult(url);
+                            analiyticsResult = await GetPerformanceResult(url);
                         }
                         else
                         {
-                            performanceResult = null;
+                            analiyticsResult = null;
                         }
 
                         var stopWatch = new Stopwatch();
