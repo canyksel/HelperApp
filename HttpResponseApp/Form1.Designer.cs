@@ -34,11 +34,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Url = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ResponseTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Phrase = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Performance = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.checkBoxLighthouse = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
@@ -47,6 +42,14 @@
             this.btnSaveResult = new System.Windows.Forms.Button();
             this.txtUrls = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.Url = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ResponseTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Phrase = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Performance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FCP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LCP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CLS = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -120,42 +123,15 @@
             this.Status,
             this.ResponseTime,
             this.Phrase,
-            this.Performance});
+            this.Performance,
+            this.FCP,
+            this.LCP,
+            this.CLS});
             this.dataGridView1.Location = new System.Drawing.Point(7, 70);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 25;
             this.dataGridView1.Size = new System.Drawing.Size(1057, 445);
             this.dataGridView1.TabIndex = 26;
-            // 
-            // Url
-            // 
-            this.Url.HeaderText = "Url";
-            this.Url.Name = "Url";
-            this.Url.Width = 312;
-            // 
-            // Status
-            // 
-            this.Status.HeaderText = "Status Code";
-            this.Status.Name = "Status";
-            this.Status.Width = 152;
-            // 
-            // ResponseTime
-            // 
-            this.ResponseTime.HeaderText = "Response Time(ms)";
-            this.ResponseTime.Name = "ResponseTime";
-            this.ResponseTime.Width = 200;
-            // 
-            // Phrase
-            // 
-            this.Phrase.HeaderText = "Reason Phrase";
-            this.Phrase.Name = "Phrase";
-            this.Phrase.Width = 150;
-            // 
-            // Performance
-            // 
-            this.Performance.HeaderText = "Performance Score";
-            this.Performance.Name = "Performance";
-            this.Performance.Width = 200;
             // 
             // checkBoxLighthouse
             // 
@@ -238,6 +214,50 @@
             this.tabControl1.Size = new System.Drawing.Size(1078, 578);
             this.tabControl1.TabIndex = 24;
             // 
+            // Url
+            // 
+            this.Url.HeaderText = "Url";
+            this.Url.Name = "Url";
+            this.Url.Width = 200;
+            // 
+            // Status
+            // 
+            this.Status.HeaderText = "Status Code";
+            this.Status.Name = "Status";
+            // 
+            // ResponseTime
+            // 
+            this.ResponseTime.HeaderText = "Response Time(ms)";
+            this.ResponseTime.Name = "ResponseTime";
+            this.ResponseTime.Width = 150;
+            // 
+            // Phrase
+            // 
+            this.Phrase.HeaderText = "Reason Phrase";
+            this.Phrase.Name = "Phrase";
+            this.Phrase.Width = 130;
+            // 
+            // Performance
+            // 
+            this.Performance.HeaderText = "Performance Score";
+            this.Performance.Name = "Performance";
+            this.Performance.Width = 150;
+            // 
+            // FCP
+            // 
+            this.FCP.HeaderText = "FCP";
+            this.FCP.Name = "FCP";
+            // 
+            // LCP
+            // 
+            this.LCP.HeaderText = "LCP";
+            this.LCP.Name = "LCP";
+            // 
+            // CLS
+            // 
+            this.CLS.HeaderText = "CLS";
+            this.CLS.Name = "CLS";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -278,5 +298,8 @@
         private DataGridViewTextBoxColumn ResponseTime;
         private DataGridViewTextBoxColumn Phrase;
         private DataGridViewTextBoxColumn Performance;
+        private DataGridViewTextBoxColumn FCP;
+        private DataGridViewTextBoxColumn LCP;
+        private DataGridViewTextBoxColumn CLS;
     }
 }
