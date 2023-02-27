@@ -352,7 +352,16 @@ namespace HttpResponseApp
             }
         }
 
-      /*   -------------- Method -2 Must be improve   -----------   */
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtSingleUrl.Text))
+            {
+                MessageBox.Show("Lütfen tarama yapmak istediðiniz URL'i giriniz!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        /*   -------------- Method -2 Must be improve   -----------   */
         /* private async void btnSaveResult_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
