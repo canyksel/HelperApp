@@ -51,6 +51,7 @@
             this.txtUrls = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.linkLabelClearResult = new System.Windows.Forms.LinkLabel();
             this.label4 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -278,6 +279,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.linkLabelClearResult);
             this.tabPage3.Controls.Add(this.label4);
             this.tabPage3.Controls.Add(this.dataGridView2);
             this.tabPage3.Controls.Add(this.checkBoxSingleUrlLighthouse);
@@ -291,6 +293,19 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Crawl Single Page";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // linkLabelClearResult
+            // 
+            this.linkLabelClearResult.AutoSize = true;
+            this.linkLabelClearResult.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.linkLabelClearResult.LinkColor = System.Drawing.Color.Black;
+            this.linkLabelClearResult.Location = new System.Drawing.Point(985, 50);
+            this.linkLabelClearResult.Name = "linkLabelClearResult";
+            this.linkLabelClearResult.Size = new System.Drawing.Size(79, 17);
+            this.linkLabelClearResult.TabIndex = 33;
+            this.linkLabelClearResult.TabStop = true;
+            this.linkLabelClearResult.Text = "Clear Result";
+            this.linkLabelClearResult.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelClearResult_LinkClicked);
             // 
             // label4
             // 
@@ -382,6 +397,7 @@
             this.btnStopAnalyze.TabIndex = 29;
             this.btnStopAnalyze.Text = "Stop Analyze";
             this.btnStopAnalyze.UseVisualStyleBackColor = true;
+            this.btnStopAnalyze.Click += new System.EventHandler(this.btnStopAnalyze_Click);
             // 
             // btnStartAnalyze
             // 
@@ -391,7 +407,7 @@
             this.btnStartAnalyze.TabIndex = 27;
             this.btnStartAnalyze.Text = "Start Analyze";
             this.btnStartAnalyze.UseVisualStyleBackColor = true;
-            this.btnStartAnalyze.Click += new System.EventHandler(this.button4_Click);
+            this.btnStartAnalyze.Click += new System.EventHandler(this.btnStartAnalyze_Click);
             // 
             // txtSingleUrl
             // 
@@ -462,5 +478,6 @@
         private Button btnStopAnalyze;
         private Button btnStartAnalyze;
         private TextBox txtSingleUrl;
+        private LinkLabel linkLabelClearResult;
     }
 }
