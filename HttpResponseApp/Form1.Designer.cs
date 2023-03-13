@@ -291,7 +291,7 @@
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(1070, 550);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Crawl Single Page";
+            this.tabPage3.Text = "Analyze Single Page";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // linkLabelClearResult
