@@ -63,6 +63,7 @@ namespace HttpResponseApp
             if (mainLink.Contains("sitemap.xml"))
             {
                 urls = await GetAllLinksFromSitemapAsync(mainLink);
+                listBoxUrlList.Items.AddRange(urls.ToArray());
             }
             else
             {
